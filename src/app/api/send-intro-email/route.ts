@@ -72,7 +72,7 @@ export async function POST(req: NextRequest) {
 
     await resend.emails.send({
       from: 'The Date Crew <onboarding@resend.dev>',
-      to: [toEmail || process.env.RESEND_TO_EMAIL || 'admin@thedatecrew.com'],
+      to: [toEmail || process.env.RESEND_TO_EMAIL || 'mounilkankhara05@gmail.com'],
       subject: `Match Introduction: ${customer.firstName} × ${profile.firstName} — ${score}% ${label}`,
       html,
     })
