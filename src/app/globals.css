@@ -1,26 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
+@theme {
+  --color-background: #FAF7F2;
+  --color-surface: #FFFFFF;
+  --color-primary: #7A3E3E;
+  --color-primary-50: #FDF5F5;
+  --color-primary-100: #FAE8E8;
+  --color-primary-200: #F2C5C5;
+  --color-primary-300: #E89A9A;
+  --color-primary-400: #D96B6B;
+  --color-primary-500: #7A3E3E;
+  --color-primary-600: #6B3535;
+  --color-primary-700: #5A2C2C;
+  --color-primary-800: #4A2424;
+  --color-primary-900: #3A1B1B;
+  --color-secondary: #C9A66B;
+  --color-secondary-50: #FDF8F0;
+  --color-secondary-100: #FAF0DD;
+  --color-secondary-200: #F2DEBA;
+  --color-secondary-300: #E8C98E;
+  --color-secondary-400: #D9B473;
+  --color-secondary-500: #C9A66B;
+  --color-secondary-600: #B8925A;
+  --color-secondary-700: #9A7A4A;
+  --color-secondary-800: #7C623B;
+  --color-secondary-900: #5E4A2C;
+  --color-muted: #6B7280;
+  --color-border: #E5E0D8;
+
+  --font-family-sans: 'Inter', system-ui, sans-serif;
+
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-3xl: 20px;
+
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-card-hover: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+  --shadow-modal: 0 20px 60px rgba(0,0,0,0.12);
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: #FAF7F2;
+  --surface: #FFFFFF;
+  --primary: #7A3E3E;
+  --secondary: #C9A66B;
+  --text: #1E1E1E;
+  --muted: #6B7280;
+  --border: #E5E0D8;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--background);
+  color: var(--text);
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Smooth scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #E5E0D8;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #C9A66B;
+}
+
+/* Transitions */
+* {
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }
