@@ -96,6 +96,15 @@ function SendMatchModal({ match, customer, onClose, onSent }: { match: any; cust
       matchLabel: match.label,
       status: 'Sent',
     })
+    fetch('/api/send-intro-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        customer, profile: match.profile,
+        score: match.score, label: match.label,
+        strengths: match.strengths, intro,
+      }),
+    })
     setSending(false)
     setSent(true)
     setTimeout(() => { onSent(); onClose() }, 1500)
