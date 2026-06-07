@@ -51,6 +51,38 @@ const JOURNEY_STAGES = ['Profile Review', 'Discovery Session', 'Preference Mappi
 function SendMatchModal({ match, customer, onClose, onSent }: { match: any; customer: any; onClose: () => void; onSent: () => void }) {
   const [sending, setSending] = useState(false)
   const [sent, setSent] = useState(false)
+  const [intro, setIntro] = useState('')
+  const [generatingIntro, setGeneratingIntro] = useState(true)
+  const [introCopied, setIntroCopied] = useState(false)
+
+  useEffect(() => {
+    async function generateIntro() {
+      try {
+        const res = await fetch('/api/generate-intro', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            customer, profile: match.profile,
+            score: match.score, label: match.label, strengths: match.strengths,
+          }),
+        })
+        const data = await res.json()
+        setIntro(data.intro || '')
+      } catch {
+        setIntro('')
+      } finally {
+        setGeneratingIntro(false)
+      }
+    }
+    generateIntro()
+  }, [])
+
+  function copyIntro() {
+    if (!intro) return
+    navigator.clipboard.writeText(intro)
+    setIntroCopied(true)
+    setTimeout(() => setIntroCopied(false), 2000)
+  }
 
   async function handleSend() {
     setSending(true)
@@ -121,10 +153,33 @@ function SendMatchModal({ match, customer, onClose, onSent }: { match: any; cust
                 ))}
               </ul>
             </div>
-            <div className="rounded-xl p-4 mb-6" style={{ background: '#FAF7F2', border: '1px solid #E5E0D8' }}>
+            <div className="rounded-xl p-4 mb-4" style={{ background: '#FAF7F2', border: '1px solid #E5E0D8' }}>
               <p className="text-xs font-medium mb-2" style={{ color: '#6B7280' }}>Match Intelligence</p>
               <p className="text-sm leading-relaxed" style={{ color: '#1E1E1E' }}>{match.explanation}</p>
             </div>
+
+            <div className="rounded-xl p-4 mb-6" style={{ background: '#F5F3FF', border: '1px solid #DDD6FE' }}>
+              <div className="flex items-center justify-between mb-2">
+                <p className="text-xs font-medium" style={{ color: '#5B21B6' }}>AI-Generated Introduction</p>
+                {intro && (
+                  <button onClick={copyIntro} className="text-xs px-2 py-0.5 rounded-md flex items-center gap-1 transition-all"
+                    style={{ background: introCopied ? '#EDE9FE' : 'transparent', color: '#5B21B6' }}>
+                    <Copy size={10} />{introCopied ? 'Copied!' : 'Copy'}
+                  </button>
+                )}
+              </div>
+              {generatingIntro ? (
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full border-2 animate-spin" style={{ borderColor: '#7C3AED', borderTopColor: 'transparent' }} />
+                  <span className="text-xs" style={{ color: '#7C3AED' }}>Generating personalised intro...</span>
+                </div>
+              ) : intro ? (
+                <p className="text-sm leading-relaxed" style={{ color: '#4C1D95' }}>{intro}</p>
+              ) : (
+                <p className="text-xs" style={{ color: '#9CA3AF' }}>Could not generate intro — check your API key.</p>
+              )}
+            </div>
+
             <div className="flex gap-3">
               <button onClick={onClose} className="flex-1 py-3 rounded-xl text-sm font-medium border" style={{ borderColor: '#E5E0D8', color: '#6B7280' }}>Cancel</button>
               <button onClick={handleSend} disabled={sending} className="flex-1 py-3 rounded-xl text-sm font-medium text-white flex items-center justify-center gap-2 disabled:opacity-60" style={{ background: '#7A3E3E' }}>
