@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import './globals.css'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'The Date Crew — Matchmaker OS',
   description: 'Internal matchmaking management platform for The Date Crew',
