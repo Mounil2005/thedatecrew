@@ -54,6 +54,7 @@ function SendMatchModal({ match, customer, onClose, onSent }: { match: any; cust
   const [intro, setIntro] = useState('')
   const [generatingIntro, setGeneratingIntro] = useState(true)
   const [introCopied, setIntroCopied] = useState(false)
+  const [demoEmail, setDemoEmail] = useState('')
 
   useEffect(() => {
     async function generateIntro() {
@@ -103,6 +104,7 @@ function SendMatchModal({ match, customer, onClose, onSent }: { match: any; cust
         customer, profile: match.profile,
         score: match.score, label: match.label,
         strengths: match.strengths, intro,
+        toEmail: demoEmail.trim() || undefined,
       }),
     })
     setSending(false)
@@ -187,6 +189,18 @@ function SendMatchModal({ match, customer, onClose, onSent }: { match: any; cust
               ) : (
                 <p className="text-xs" style={{ color: '#9CA3AF' }}>Could not generate intro — check your API key.</p>
               )}
+            </div>
+
+            <div className="rounded-xl px-4 py-3 mb-4" style={{ background: '#FFF7ED', border: '1px solid #FED7AA' }}>
+              <p className="text-xs font-medium mb-2" style={{ color: '#92400E' }}>Demo — Send email to</p>
+              <input
+                type="email"
+                value={demoEmail}
+                onChange={e => setDemoEmail(e.target.value)}
+                placeholder="Enter your email to receive this introduction"
+                className="w-full px-3 py-2 rounded-lg border text-sm outline-none"
+                style={{ borderColor: '#FED7AA', background: '#FFFFFF', color: '#1E1E1E' }}
+              />
             </div>
 
             <div className="flex gap-3">
