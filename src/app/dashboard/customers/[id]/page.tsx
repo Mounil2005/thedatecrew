@@ -412,9 +412,9 @@ function VideoCallSection({
           <div className="mt-4 rounded-xl p-3" style={{ background: '#FFF7ED', border: '1px solid #FED7AA' }}>
             <p className="text-xs font-semibold mb-1" style={{ color: '#92400E' }}>Reviewer Note</p>
             <p className="text-xs leading-relaxed" style={{ color: '#9A3412' }}>
-              Requires Chrome or Edge. WebRTC P2P via Firebase Firestore signaling — free, no media relay server.
+              Requires Chrome or Edge. WebRTC P2P via Firebase Firestore signaling, free, no media relay server.
               Transcription uses Chrome&apos;s built-in Speech API (en-US, free). Use <strong>speakers, not headphones</strong> for both-voice capture.
-              TURN server not configured — may fail on strict corporate NAT.
+              TURN server not configured, may fail on strict corporate NAT.
               <br /><br />
               <strong>Client access:</strong> The shareable link works immediately once deployed to Vercel.
               Locally on localhost, only devices on the same WiFi network can join. For remote testing without deployment, run <code>ngrok http 3002</code> and share the ngrok URL instead.
