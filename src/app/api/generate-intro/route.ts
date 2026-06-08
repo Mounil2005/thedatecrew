@@ -21,7 +21,7 @@ Compatibility: ${score}% — ${label}. Key strengths: ${strengths.slice(0, 3).jo
 Write the note in first-person as the matchmaker. Be specific, warm, and avoid generic filler phrases. Keep it under 80 words.`
 
     const response = await openai.chat.completions.create({
-      model: 'openai/gpt-oss-120b',
+      model: 'llama-3.3-70b-versatile',
       messages: [{ role: 'user', content: prompt }],
       max_tokens: 120,
       temperature: 0.75,
