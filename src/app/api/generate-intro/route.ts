@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import OpenAI from 'openai'
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
+const openai = new OpenAI({
+  apiKey: process.env.GROQ_API_KEY,
+  baseURL: 'https://api.groq.com/openai/v1',
+})
 
 export async function POST(req: NextRequest) {
   try {
@@ -18,7 +21,7 @@ Compatibility: ${score}% — ${label}. Key strengths: ${strengths.slice(0, 3).jo
 Write the note in first-person as the matchmaker. Be specific, warm, and avoid generic filler phrases. Keep it under 80 words.`
 
     const response = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
+      model: 'openai/gpt-oss-120b',
       messages: [{ role: 'user', content: prompt }],
       max_tokens: 120,
       temperature: 0.75,

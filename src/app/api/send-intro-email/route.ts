@@ -1,7 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { Resend } from 'resend'
+import nodemailer from 'nodemailer'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'mounilkankhara05@gmail.com',
+    pass: process.env.GMAIL_APP_PASSWORD,
+  },
+})
 
 export async function POST(req: NextRequest) {
   try {
@@ -70,9 +76,9 @@ export async function POST(req: NextRequest) {
 </body>
 </html>`
 
-    await resend.emails.send({
-      from: 'The Date Crew <onboarding@resend.dev>',
-      to: [toEmail || process.env.RESEND_TO_EMAIL || 'mounilkankhara05@gmail.com'],
+    await transporter.sendMail({
+      from: 'The Date Crew <mounilkankhara05@gmail.com>',
+      to: toEmail || 'mounilkankhara05@gmail.com',
       subject: `Match Introduction: ${customer.firstName} × ${profile.firstName} — ${score}% ${label}`,
       html,
     })
